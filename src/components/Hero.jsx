@@ -17,6 +17,13 @@ const Hero = () => {
     return () => clearInterval(wordInterval);
   }, []);
 
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className={`hero ${isDark ? 'dark' : 'light'}`}>
       <div className="hero-container">
