@@ -1,70 +1,60 @@
-# GitHub Codespaces ♥️ React
+# 🌌 Alex Opiyo Odhiambo — Portfolio
 
-Welcome to your shiny new Codespace running React! We've got everything fired up and running for you to explore React.
+A polished, animation-rich portfolio built to showcase modern engineering craft: continuous name animation, dark/light themes, motion-first UX, and a conversion-ready contact flow.
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+## 🚀 Live & Project Links
+- Production: Pending (Netlify ready)
+- Repo: [alekistar/codespaces-react](https://github.com/alekistar/codespaces-react)
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+## ✨ Highlights
+- Framer Motion animations (hero, cards, name characters, scroll reveals)
+- Dark/light theme toggle with persistence
+- Responsive layout tuned for mobile-first viewing
+- Professionally structured sections: Hero, Services, Skills, About, Tools, Contact, Footer
+- Formspree-powered contact form (Form ID: `xwvorzbe`)
+- Socials wired: LinkedIn, GitHub, Instagram (@its_official_lex_P)
 
-This project was bootstrapped for you with [Vite](https://vitejs.dev/).
+## 🛠 Tech Stack
+- React 18 + Vite
+- Framer Motion, React Icons
+- CSS (hand-crafted, no UI frameworks)
+- Context API for theming
 
-## Available Scripts
+## 📦 Getting Started
+```bash
+npm install
+npm start        # dev server at http://localhost:3000
+npm run build    # production build in /dist
+npm run preview  # preview production build locally
+```
 
-In the project directory, you can run:
+## 🌐 Deploy to Netlify (CI from GitHub)
+1) Connect repo on Netlify → New site from Git → pick `alekistar/codespaces-react`.
+2) Build command: `npm run build`
+3) Publish directory: `dist`
+4) Deploy. For a name.com domain:
+	- A record: `@` → `75.2.60.5`
+	- CNAME: `www` → your Netlify subdomain
+5) Enable HTTPS in Netlify.
 
-### `npm start`
+## 🎯 What Employers Should Notice
+- **Interaction polish:** continuous hero-name wave, staggered reveals, hover micro-interactions.
+- **UX focus:** clear CTAs (“Hire Me”, “View Services”), pricing cards, social proof stats.
+- **Performance discipline:** Vite build, lean CSS, no heavy UI frameworks.
+- **Maintainability:** componentized structure, theme context, clear file organization.
 
-We've already run this for you in the `Codespaces: server` terminal window below. If you need to stop the server for any reason you can just run `npm start` again to bring it back online.
+## 🧭 Personalization Map
+- Name animation: [src/components/AnimatedName.jsx](src/components/AnimatedName.jsx)
+- Hero stats: [src/components/Hero.jsx](src/components/Hero.jsx)
+- Services/pricing: [src/components/Services.jsx](src/components/Services.jsx)
+- About copy/stats: [src/components/About.jsx](src/components/About.jsx)
+- Contact/socials/Formspree ID: [src/components/Contact.jsx](src/components/Contact.jsx) and [src/components/Footer.jsx](src/components/Footer.jsx)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000/](http://localhost:3000/) in the built-in Simple Browser (`Cmd/Ctrl + Shift + P > Simple Browser: Show`) to view your running application.
+## ✅ Production Checklist
+- [ ] Update domain in Netlify
+- [ ] Verify Formspree emails (Form ID `xwvorzbe`)
+- [ ] Test contact form success path
+- [ ] Run `npm run build` (passes)
 
-The page will reload automatically when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Vite documentation](https://vitejs.dev/guide/).
-
-To learn Vitest, a Vite-native testing framework, go to [Vitest documentation](https://vitest.dev/guide/)
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://sambitsahoo.com/blog/vite-code-splitting-that-works.html](https://sambitsahoo.com/blog/vite-code-splitting-that-works.html)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer#rollup-plugin-visualizer)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf](https://dev.to/hamdankhan364/simplifying-progressive-web-app-pwa-development-with-vite-a-beginners-guide-38cf)
-
-### Advanced Configuration
-
-This section has moved here: [https://vitejs.dev/guide/build.html#advanced-base-options](https://vitejs.dev/guide/build.html#advanced-base-options)
-
-### Deployment
-
-This section has moved here: [https://vitejs.dev/guide/build.html](https://vitejs.dev/guide/build.html)
-
-### Troubleshooting
-
-This section has moved here: [https://vitejs.dev/guide/troubleshooting.html](https://vitejs.dev/guide/troubleshooting.html)
+## 📄 License
+Personal portfolio project. You may reference structure/ideas; keep attribution appreciated.
