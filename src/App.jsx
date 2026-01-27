@@ -1,28 +1,36 @@
+import { ThemeProvider, useTheme } from './context/ThemeContext';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Services from './components/Services';
+import Skills from './components/Skills';
+import About from './components/About';
+import Tools from './components/Tools';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 import './App.css';
+
+function AppContent() {
+  const { isDark } = useTheme();
+
+  return (
+    <div className={`App ${isDark ? 'dark' : 'light'}`}>
+      <Navbar />
+      <Hero />
+      <Services />
+      <Skills />
+      <About />
+      <Tools />
+      <Contact />
+      <Footer />
+    </div>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
-    </div>
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
