@@ -118,7 +118,7 @@ const About = () => {
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <div className="stat-item">
-            <div className="stat-number">1+</div>
+            <div className="stat-number">3+</div>
             <div className="stat-label">Years Experience</div>
           </div>
           <div className="stat-divider"></div>

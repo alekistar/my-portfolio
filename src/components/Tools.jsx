@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SiJavascript, SiHtml5, SiCss3, SiTailwindcss, SiReact, SiNodedotjs, SiGithub, SiVercel, SiMongodb, SiPostgresql, SiPython, SiFigma, SiGo, SiRust, SiTauri } from 'react-icons/si';
+import { SiJavascript, SiHtml5, SiCss3, SiTailwindcss, SiReact, SiNodedotjs, SiGithub, SiVercel, SiMongodb, SiPostgresql, SiPython, SiFigma, SiGo, SiRust, SiTauri, SiTypescript, SiSupabase } from 'react-icons/si';
 import { useTheme } from '../context/ThemeContext';
 import './Tools.css';
 
@@ -11,6 +11,7 @@ const Tools = () => {
       category: 'Frontend',
       tools: [
         { name: 'JavaScript', icon: <SiJavascript />, color: '#f7df1e' },
+        { name: 'TypeScript', icon: <SiTypescript />, color: '#3178c6' },
         { name: 'HTML5', icon: <SiHtml5 />, color: '#e34f26' },
         { name: 'CSS3', icon: <SiCss3 />, color: '#1572b6' },
         { name: 'Tailwind', icon: <SiTailwindcss />, color: '#06b6d4' },
@@ -26,7 +27,8 @@ const Tools = () => {
         { name: 'Go', icon: <SiGo />, color: '#00add8' },
         { name: 'Rust', icon: <SiRust />, color: '#ce422b' },
         { name: 'MongoDB', icon: <SiMongodb />, color: '#47a248' },
-        { name: 'PostgreSQL', icon: <SiPostgresql />, color: '#4169e1' }
+        { name: 'PostgreSQL', icon: <SiPostgresql />, color: '#4169e1' },
+        { name: 'Supabase', icon: <SiSupabase />, color: '#3ecf8e' }
       ]
     },
     {
