@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiCode, FiServer, FiDollarSign, FiZap } from 'react-icons/fi';
+import { FiCode, FiServer, FiArrowRight, FiZap, FiDollarSign } from 'react-icons/fi';
 import { useTheme } from '../context/ThemeContext';
 import './Services.css';
 
@@ -10,7 +10,8 @@ const Services = () => {
     {
       icon: <FiCode />,
       title: 'Static Website Development',
-      price: '$150',
+      price: 'KES 15,000 / $120',
+      priceLabel: 'starting',
       description: 'Perfect for portfolios, landing pages, and business websites. Fast, secure, and SEO-optimized.',
       features: [
         'Responsive Design',
@@ -25,7 +26,8 @@ const Services = () => {
     {
       icon: <FiServer />,
       title: 'Dynamic Website Development',
-      price: '$400',
+      price: 'Custom Quote',
+      priceLabel: null,
       description: 'Full-featured web applications with databases, user authentication, and complex functionality.',
       features: [
         'Custom Backend',
@@ -39,13 +41,31 @@ const Services = () => {
       featured: true
     },
     {
+      icon: <FiDollarSign />,
+      title: 'M-Pesa & API Integration',
+      price: 'Starting KES 20,000',
+      priceLabel: 'starting',
+      description: 'Seamless payment integration (Daraja API) and custom automated workflows for businesses.',
+      features: [
+        'M-Pesa Daraja API',
+        'Payment Processing',
+        'Transaction Webhooks',
+        'Custom Workflows',
+        'Full Documentation'
+      ],
+      gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+      color: '#43e97b',
+      badge: 'For Kenya'
+    },
+    {
       icon: <FiZap />,
       title: 'Deployment & Hosting',
-      price: 'From $8/month',
+      price: 'From KES 800/month',
+      priceLabel: 'monthly',
       description: 'Professional hosting and management services for your websites.',
       features: [
-        'Static Sites: $8/month',
-        'Dynamic Sites: $15/month',
+        'Static Sites: KES 800/mo',
+        'Dynamic Sites: KES 1,500/mo',
         'SSL Certificate',
         'Daily Backups',
         '24/7 Monitoring'
@@ -69,7 +89,7 @@ const Services = () => {
             My <span className="gradient-text">Services</span>
           </h2>
           <p className="section-subtitle">
-            Professional web development solutions tailored to your needs
+            Professional web development for Kenyan startups and global teams
           </p>
         </motion.div>
 
@@ -87,6 +107,9 @@ const Services = () => {
               {service.featured && (
                 <div className="featured-badge">Most Popular</div>
               )}
+              {service.badge && (
+                <div className="service-badge" style={{ background: 'linear-gradient(135deg, #43e97b, #38f9d7)' }}>{service.badge}</div>
+              )}
 
               <motion.div
                 className="service-icon"
@@ -101,7 +124,7 @@ const Services = () => {
               
               <div className="service-price">
                 <span className="price-amount">{service.price}</span>
-                {!service.price.includes('month') && <span className="price-label">one-time</span>}
+                {service.priceLabel && <span className="price-label">{service.priceLabel}</span>}
               </div>
 
               <p className="service-description">{service.description}</p>
@@ -132,7 +155,7 @@ const Services = () => {
                 }}
               >
                 <span>Get Started</span>
-                <FiDollarSign />
+                <FiArrowRight />
               </motion.button>
             </motion.div>
           ))}

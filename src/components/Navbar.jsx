@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
 import { useTheme } from '../context/ThemeContext';
+import { trackEvent } from '../config/datadog';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -17,7 +18,7 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = ['Home', 'Services', 'Skills', 'About', 'Tools', 'Contact'];
+  const navItems = ['Home', 'Services', 'Portfolio', 'Skills', 'About', 'Testimonials', 'Blog', 'Tools', 'Contact'];
 
   const scrollToSection = (item) => {
     const section = document.getElementById(item.toLowerCase());
@@ -40,7 +41,7 @@ const Navbar = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span className="logo-text">Alex's Portfolio</span>
+          <span className="logo-text">Alex Opiyo</span>
           <span className="logo-dot">.</span>
         </motion.div>
 
@@ -61,7 +62,14 @@ const Navbar = () => {
           ))}
           <motion.button
             className="theme-toggle"
-            onClick={toggleTheme}
+            onClick={() => {
+              trackEvent('theme_toggled', {
+                new_theme: isDark ? 'light' : 'dark',
+                location: 'navbar_desktop',
+                timestamp: new Date().toISOString(),
+              });
+              toggleTheme();
+            }}
             whileHover={{ scale: 1.2, rotate: 180 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -72,7 +80,14 @@ const Navbar = () => {
         <div className="nav-mobile">
           <motion.button
             className="theme-toggle"
-            onClick={toggleTheme}
+            onClick={() => {
+              trackEvent('theme_toggled', {
+                new_theme: isDark ? 'light' : 'dark',
+                location: 'navbar_mobile',
+                timestamp: new Date().toISOString(),
+              });
+              toggleTheme();
+            }}
             whileHover={{ scale: 1.2, rotate: 180 }}
             whileTap={{ scale: 0.9 }}
           >

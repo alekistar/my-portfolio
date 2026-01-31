@@ -1,60 +1,50 @@
 import { motion } from 'framer-motion';
-import { FiCode, FiServer, FiCpu, FiEdit, FiVideo, FiImage, FiShare2 } from 'react-icons/fi';
+import { FiDatabase, FiCloud, FiCode } from 'react-icons/fi';
 import { useTheme } from '../context/ThemeContext';
 import './Skills.css';
 
 const Skills = () => {
   const { isDark } = useTheme();
 
-  const skills = [
+  const skillCategories = [
     {
+      category: 'Web Development',
       icon: <FiCode />,
-      title: 'Web Development',
-      subtitle: 'Frontend & Backend',
-      level: 95,
-      color: '#667eea'
+      color: '#667eea',
+      skills: [
+        { name: 'React', icon: '⚛️' },
+        { name: 'JavaScript', icon: '🟨' },
+        { name: 'TypeScript', icon: '🔵' },
+        { name: 'HTML5', icon: '📄' },
+        { name: 'CSS3', icon: '🎨' },
+        { name: 'Tailwind', icon: '💨' },
+        { name: 'Node.js', icon: '🟩' },
+        { name: 'Express', icon: '⚡' },
+        { name: 'Vite', icon: '⚡' }
+      ]
     },
     {
-      icon: <FiServer />,
-      title: 'Hosting & Deployment',
-      subtitle: 'Cloud Infrastructure',
-      level: 90,
-      color: '#f093fb'
+      category: 'Systems & Data',
+      icon: <FiDatabase />,
+      color: '#f093fb',
+      skills: [
+        { name: 'Python', icon: '🐍' },
+        { name: 'SQL', icon: '🗄️' },
+        { name: 'MongoDB', icon: '📦' },
+        { name: 'PostgreSQL', icon: '🐘' },
+        { name: 'REST APIs', icon: '🔗' }
+      ]
     },
     {
-      icon: <FiCpu />,
-      title: 'AI & Machine Learning',
-      subtitle: 'Modern AI Solutions',
-      level: 85,
-      color: '#4facfe'
-    },
-    {
-      icon: <FiEdit />,
-      title: 'Writing & Content',
-      subtitle: 'Professional Content',
-      level: 88,
-      color: '#43e97b'
-    },
-    {
-      icon: <FiVideo />,
-      title: 'Video Editing',
-      subtitle: 'Creative Production',
-      level: 82,
-      color: '#fa709a'
-    },
-    {
-      icon: <FiImage />,
-      title: 'Graphic Design',
-      subtitle: 'Visual Design',
-      level: 87,
-      color: '#fee140'
-    },
-    {
-      icon: <FiShare2 />,
-      title: 'Social Media Management',
-      subtitle: 'Digital Marketing',
-      level: 90,
-      color: '#30cfd0'
+      category: 'Tools & DevOps',
+      icon: <FiCloud />,
+      color: '#4facfe',
+      skills: [
+        { name: 'Git', icon: '🌳' },
+        { name: 'Linux', icon: '🐧' },
+        { name: 'Docker', icon: '🐳' },
+        { name: 'Postman', icon: '📮' }
+      ]
     }
   ];
 
@@ -69,47 +59,52 @@ const Skills = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">
-            My <span className="gradient-text">Skills</span>
+            Technical <span className="gradient-text">Skills</span>
           </h2>
           <p className="section-subtitle">
-            A diverse skill set to bring your projects to life
+            Modern technologies and tools I use to build exceptional products
           </p>
         </motion.div>
 
-        <div className="skills-grid">
-          {skills.map((skill, index) => (
+        <div className="skills-categories">
+          {skillCategories.map((category, categoryIndex) => (
             <motion.div
-              key={index}
-              className="skill-card"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              key={categoryIndex}
+              className="skill-category"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              transition={{ delay: categoryIndex * 0.2, duration: 0.6 }}
             >
-              <motion.div
-                className="skill-icon"
-                style={{ background: `linear-gradient(135deg, ${skill.color}, ${skill.color}dd)` }}
-                whileHover={{ scale: 1.1, rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                {skill.icon}
-              </motion.div>
-
-              <h3 className="skill-title">{skill.title}</h3>
-              <p className="skill-subtitle">{skill.subtitle}</p>
-
-              <div className="skill-bar-container">
+              <div className="category-header">
                 <motion.div
-                  className="skill-bar"
-                  style={{ background: skill.color }}
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${skill.level}%` }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 + 0.3, duration: 1, ease: "easeOut" }}
+                  className="category-icon"
+                  style={{ background: `linear-gradient(135deg, ${category.color}, ${category.color}dd)` }}
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={{ duration: 0.6 }}
                 >
-                  <span className="skill-percentage">{skill.level}%</span>
+                  {category.icon}
                 </motion.div>
+                <h3 className="category-title">{category.category}</h3>
+              </div>
+
+              <div className="skills-tags">
+                {category.skills.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skillIndex}
+                    className="skill-tag"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: categoryIndex * 0.2 + skillIndex * 0.05, duration: 0.3 }}
+                    whileHover={{ scale: 1.1, y: -5 }}
+                  >
+                    <span className="skill-tag-icon" style={{ color: category.color }}>
+                      {skill.icon}
+                    </span>
+                    <span className="skill-tag-name">{skill.name}</span>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           ))}

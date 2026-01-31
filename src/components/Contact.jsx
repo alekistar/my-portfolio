@@ -1,21 +1,42 @@
 import { motion } from 'framer-motion';
-import { FiMail, FiSend, FiUser, FiMessageSquare } from 'react-icons/fi';
-import { FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FiMail, FiSend, FiUser, FiMessageSquare, FiMapPin, FiPhone } from 'react-icons/fi';
+import { FaInstagram, FaLinkedin, FaGithub, FaWhatsapp } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 import { useForm, ValidationError } from '@formspree/react';
+import { trackEvent, trackError } from '../config/datadog';
 import './Contact.css';
 
 const Contact = () => {
   const { isDark } = useTheme();
   const [state, handleSubmit] = useForm("xwvorzbe");
 
+  // Track form submission
+  const onSubmit = async (e) => {
+    try {
+      trackEvent('contact_form_submit_attempt', {
+        timestamp: new Date().toISOString(),
+      });
+      await handleSubmit(e);
+      if (!state.errors || state.errors.length === 0) {
+        trackEvent('contact_form_success', {
+          timestamp: new Date().toISOString(),
+        });
+      }
+    } catch (error) {
+      trackError(error, {
+        component: 'Contact',
+        action: 'form_submission',
+      });
+    }
+  };
+
   const socialLinks = [
     {
-      name: 'Instagram',
-      icon: <FaInstagram />,
-      url: 'https://instagram.com/its_official_lex_P',
-      color: '#E4405F',
-      hoverText: 'Follow on Instagram'
+      name: 'WhatsApp',
+      icon: <FaWhatsapp />,
+      url: "https://wa.me/254759447439?text=Hi%20Alex,%20I'm%20interested%20in%20your%20web%20development%20services",
+      color: '#25D366',
+      hoverText: 'Chat on WhatsApp'
     },
     {
       name: 'LinkedIn',
@@ -30,6 +51,13 @@ const Contact = () => {
       url: 'https://github.com/alekistar',
       color: '#181717',
       hoverText: 'View on GitHub'
+    },
+    {
+      name: 'Instagram',
+      icon: <FaInstagram />,
+      url: 'https://instagram.com/its_official_lex_P',
+      color: '#E4405F',
+      hoverText: 'Follow on Instagram'
     }
   ];
 
@@ -44,10 +72,10 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">
-            Let's Work <span className="gradient-text">Together</span>
+            Ready to Digitise Your <span className="gradient-text">Business?</span>
           </h2>
           <p className="section-subtitle">
-            Have a project in mind? Let's create something amazing!
+            Let's build something amazing together. Get in touch today!
           </p>
         </motion.div>
 
@@ -61,13 +89,26 @@ const Contact = () => {
           >
             <h3 className="contact-info-title">Get in Touch</h3>
             <p className="contact-info-text">
-              I'm always open to discussing new projects, creative ideas, or 
-              opportunities to be part of your vision. Let's connect!
+              Based in Nairobi, Kenya, and available for remote work globally. I'm always open to discussing 
+              new projects, creative ideas, or opportunities to be part of your vision. Let's connect!
             </p>
 
             <div className="contact-methods">
+              <motion.div
+                className="contact-method"
+                whileHover={{ x: 10 }}
+              >
+                <div className="method-icon" style={{ background: 'linear-gradient(135deg, #43e97b, #38f9d7)' }}>
+                  <FiMapPin />
+                </div>
+                <div className="method-content">
+                  <div className="method-label">Location</div>
+                  <div className="method-value">Nairobi, Kenya (Available for Remote Work Globally)</div>
+                </div>
+              </motion.div>
+
               <motion.a
-                href="mailto:lexaura.lexp@gmail.com"
+                href="mailto:alex@alex-odhiambo.tech"
                 className="contact-method"
                 whileHover={{ x: 10 }}
               >
@@ -76,7 +117,23 @@ const Contact = () => {
                 </div>
                 <div className="method-content">
                   <div className="method-label">Email</div>
-                  <div className="method-value">lexaura.lexp@gmail.com</div>
+                  <div className="method-value">alex@alex-odhiambo.tech</div>
+                </div>
+              </motion.a>
+
+              <motion.a
+                href="https://wa.me/254700000000?text=Hi%20Alex,%20I'm%20interested%20in%20your%20web%20development%20services"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-method"
+                whileHover={{ x: 10 }}
+              >
+                <div className="method-icon" style={{ background: 'linear-gradient(135deg, #25D366, #20BA61)' }}>
+                  <FaWhatsapp />
+                </div>
+                <div className="method-content">
+                  <div className="method-label">WhatsApp</div>
+                  <div className="method-value">Chat with me directly</div>
                 </div>
               </motion.a>
             </div>
@@ -98,6 +155,11 @@ const Contact = () => {
                     transition={{ delay: index * 0.1, duration: 0.5 }}
                     whileHover={{ scale: 1.1, y: -5 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => trackEvent('social_link_clicked', {
+                      platform: social.name,
+                      url: social.url,
+                      timestamp: new Date().toISOString(),
+                    })}
                   >
                     <div className="social-icon">
                       {social.icon}
@@ -125,7 +187,7 @@ const Contact = () => {
                 ✓ Message sent! I'll get back to you soon.
               </motion.div>
             ) : (
-            <form className="contact-form" onSubmit={handleSubmit}>
+            <form className="contact-form" onSubmit={onSubmit}>
               <div className="form-group">
                 <label htmlFor="name" className="form-label">
                   <FiUser />

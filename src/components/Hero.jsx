@@ -1,23 +1,19 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiBriefcase } from 'react-icons/fi';
 import { useTheme } from '../context/ThemeContext';
+import { trackEvent } from '../config/datadog';
 import AnimatedName from './AnimatedName';
 import './Hero.css';
 
 const Hero = () => {
   const { isDark } = useTheme();
-  const words = ['Full-Stack Developer', 'Creative Builder', 'Innovative Thinker'];
-  const [currentWord, setCurrentWord] = useState(0);
-
-  useEffect(() => {
-    const wordInterval = setInterval(() => {
-      setCurrentWord((prev) => (prev + 1) % words.length);
-    }, 4000);
-    return () => clearInterval(wordInterval);
-  }, []);
 
   const scrollToSection = (id) => {
+    trackEvent('cta_clicked', {
+      button: id === 'contact' ? 'hire_me' : 'view_services',
+      location: 'hero_section',
+      timestamp: new Date().toISOString(),
+    });
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
@@ -49,7 +45,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <AnimatedName name="Alex Opiyo Odhiambo" />
+            <AnimatedName name="Alex Opiyo" />
           </motion.h1>
 
           <motion.p
@@ -58,19 +54,8 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5 }}
           >
-            I'm a{' '}
-            <motion.span
-              className="rotating-word"
-              key={currentWord}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
-            >
-              {words[currentWord]}
-            </motion.span>{' '}
-            dedicated to creating exceptional digital experiences that help 
-            businesses and individuals thrive in the modern web.
+            Full-Stack Developer & IB Scholar at <strong>M-Pesa Foundation Academy</strong>. 
+            Bridging the gap between complex data and elegant web solutions for Kenyan and global businesses.
           </motion.p>
 
           <motion.div

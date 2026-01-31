@@ -130,6 +130,20 @@
   box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
 }
 
+.service-badge {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  padding: 0.4rem 1rem;
+  color: #0f172a;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(56, 249, 215, 0.4);
+}
+
 .service-icon {
   width: 80px;
   height: 80px;

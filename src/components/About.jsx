@@ -54,9 +54,10 @@ const About = () => {
             transition={{ duration: 0.6 }}
           >
             <p className="about-paragraph">
-              I'm a passionate <strong>Full-Stack Web Developer</strong> dedicated to creating 
+              I'm a passionate <strong>Full-Stack Web Developer</strong> based in Nairobi, Kenya, dedicated to creating 
               exceptional digital experiences that drive results. With expertise spanning frontend 
-              design to backend architecture, I transform ideas into powerful web solutions.
+              design to backend architecture, I transform ideas into powerful web solutions for local 
+              and international clients.
             </p>
 
             <p className="about-paragraph">
@@ -73,7 +74,7 @@ const About = () => {
             </p>
 
             <p className="about-paragraph">
-              Whether you're a startup looking to establish your online presence or a business 
+              Whether you're a Kenyan startup looking to establish your online presence or a global business 
               seeking to scale, I'm here to help you succeed. Let's build something amazing together.
             </p>
           </motion.div>
