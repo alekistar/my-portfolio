@@ -38,7 +38,7 @@ The solution is the **STK Push** (Sim Tool Kit). You enter your number, your pho
 
 Safaricom's API (Daraja) is powerful, but the documentation can sometimes feel overwhelming for beginners. As a scholar at the M-Pesa Foundation Academy, I've spent considerable time analyzing how mobile money drives our economy. Recently, I decided to stop just studying it and start building with it.
 
-Here's how I used Python and Flask to integrate the Safaricom Daraja API in under 15 minutes—and how you can too.
+Here's how I used Python and Flask to integrate the Safaricom Daraja API in under 15 minutes. And how you can do it too.
 
 ### What You Need
 
@@ -51,7 +51,7 @@ To get this working, you need three critical components:
 
 ## Step 1: Authentication (The Access Token)
 
-You can't just send a payment request. First, you need an Access Token—think of it as a wristband that lets you into the club.
+You can't just send a payment request. First, you need an Access Token. Think of it like a wristband that lets you into the club.
 
 Using Python's \`requests\` library, we hit the \`oauth/v1/generate\` endpoint using our Consumer Key and Secret:
 
@@ -173,7 +173,7 @@ A custom M-Pesa integration does far more than just take money:
 ✅ **Speed**: No manual verification of M-Pesa messages  
 ✅ **Automation**: Your system automatically knows the invoice is paid and can release the product instantly  
 ✅ **Professional Image**: Shows your business is serious about digital payments  
-✅ **Reduced Chargebacks**: M-Pesa transactions are final—no reversals  
+✅ **Reduced Chargebacks**: M-Pesa transactions are final, no reversals  
 
 ---
 
