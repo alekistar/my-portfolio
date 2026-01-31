@@ -122,7 +122,7 @@ const Contact = () => {
               </motion.a>
 
               <motion.a
-                href="https://wa.me/254700000000?text=Hi%20Alex,%20I'm%20interested%20in%20your%20web%20development%20services"
+                href="https://wa.me/254759447439?text=Hi%20Alex,%20I'm%20interested%20in%20your%20web%20development%20services"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-method"
