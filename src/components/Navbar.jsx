@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
 import { useTheme } from '../context/ThemeContext';
@@ -9,6 +10,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { isDark, toggleTheme } = useTheme();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,11 +22,22 @@ const Navbar = () => {
 
   const navItems = ['Home', 'Services', 'Portfolio', 'Skills', 'About', 'Testimonials', 'Blog', 'Tools', 'Contact'];
 
-  const scrollToSection = (item) => {
-    const section = document.getElementById(item.toLowerCase());
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+  const scrollOrNavigate = (item) => {
+    const targetId = item.toLowerCase();
+    const onHome = location.pathname === '/';
+
+    if (onHome) {
+      const section = document.getElementById(targetId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Fallback to hash navigation
+        window.location.hash = `#${targetId}`;
+      }
       setIsOpen(false);
+    } else {
+      // Navigate to home with hash so GH Pages SPA works
+      window.location.href = `/#${targetId}`;
     }
   };
 
@@ -49,7 +62,7 @@ const Navbar = () => {
           {navItems.map((item, index) => (
             <motion.button
               key={item}
-              onClick={() => scrollToSection(item)}
+              onClick={() => scrollOrNavigate(item)}
               className="nav-link"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -109,7 +122,7 @@ const Navbar = () => {
           {navItems.map((item) => (
             <motion.button
               key={item}
-              onClick={() => scrollToSection(item)}
+              onClick={() => scrollOrNavigate(item)}
               className="mobile-nav-link"
               whileHover={{ x: 10 }}
             >
