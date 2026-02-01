@@ -4,6 +4,13 @@ import './index.css';
 import App from './App';
 import { initializeDatadog } from './config/datadog';
 
+// Handle SPA redirects from GitHub Pages 404 fallback
+const redirectPath = sessionStorage.getItem('redirect');
+if (redirectPath) {
+  sessionStorage.removeItem('redirect');
+  window.history.replaceState(null, '', redirectPath);
+}
+
 // Initialize Datadog monitoring
 initializeDatadog();
 

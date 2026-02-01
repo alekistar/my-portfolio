@@ -1,18 +1,11 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiCalendar, FiUser, FiArrowRight } from 'react-icons/fi';
 import { useTheme } from '../context/ThemeContext';
-import BlogArticle from './BlogArticle';
 import './Blog.css';
 
 const Blog = () => {
   const { isDark } = useTheme();
-  const [selectedArticle, setSelectedArticle] = useState(null);
-
-  // Show full article view if selected
-  if (selectedArticle) {
-    return <BlogArticle article={selectedArticle} onBack={() => setSelectedArticle(null)} />;
-  }
 
   const articles = [
     {
@@ -278,15 +271,15 @@ If you're running a Kenyan business and want to start accepting M-Pesa payments 
                   </div>
                 </div>
 
-                <motion.button
-                  className="read-more-btn"
-                  onClick={() => setSelectedArticle(article)}
+                <motion.div
                   whileHover={{ scale: 1.05, x: 5 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Read Article
-                  <FiArrowRight />
-                </motion.button>
+                  <Link to={`/blog/${article.slug}`} className="read-more-btn">
+                    Read Article
+                    <FiArrowRight />
+                  </Link>
+                </motion.div>
               </div>
             </motion.article>
           ))}
