@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -16,6 +17,21 @@ import './App.css';
 
 function AppContent() {
   const { isDark } = useTheme();
+  const location = useLocation();
+
+  // Scroll to section if a hash or navigation state requests it
+  useEffect(() => {
+    const hash = location.hash || `#${location.state?.scrollTo || ''}`;
+    if (hash && hash !== '#') {
+      const id = hash.replace('#', '');
+      const section = document.getElementById(id);
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }, 50);
+      }
+    }
+  }, [location]);
 
   return (
     <div className={`App ${isDark ? 'dark' : 'light'}`}>

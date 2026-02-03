@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
 import { useTheme } from '../context/ThemeContext';
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,8 +37,9 @@ const Navbar = () => {
       }
       setIsOpen(false);
     } else {
-      // Navigate to home with hash so GH Pages SPA works
-      window.location.href = `/#${targetId}`;
+      // Navigate via router and pass target id; App will scroll when loaded
+      navigate('/', { state: { scrollTo: targetId } });
+      setIsOpen(false);
     }
   };
 
