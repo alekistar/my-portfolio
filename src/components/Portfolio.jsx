@@ -8,6 +8,16 @@ const Portfolio = () => {
 
   const projects = [
     {
+      title: 'LexAura P Drop',
+      description: 'A premium sneaker drop experience for luxury streetwear, featuring cinematic animations, a live countdown, and interactive waitlist.',
+      image: '/projects/lexaura.png',
+      tags: ['React 19', 'Vite', 'TypeScript', 'Tailwind CSS'],
+      liveUrl: 'https://lexaura-sneaker-drop.vercel.app',
+      githubUrl: 'https://github.com/alekistar/lexaura-sneaker-drop',
+      gradient: 'linear-gradient(135deg, #0f172a 0%, #334155 100%)',
+      featured: true
+    },
+    {
       title: 'Professional Portfolio Website',
       description: 'Modern, responsive portfolio built with React and Framer Motion. Features dark/light theme, smooth animations, and optimized performance.',
       image: '🌐',
@@ -15,7 +25,7 @@ const Portfolio = () => {
       liveUrl: 'https://alex-odhiambo.tech',
       githubUrl: 'https://github.com/alekistar/my-portfolio',
       gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      featured: true
+      featured: false
     },
     {
       title: 'M-Pesa Payment Integration',
@@ -98,7 +108,11 @@ const Portfolio = () => {
               )}
 
               <div className="project-image" style={{ background: project.gradient }}>
-                <span className="project-emoji">{project.image}</span>
+                {project.image.startsWith('/') || project.image.startsWith('http') ? (
+                  <img src={project.image} alt={project.title} className="project-thumbnail" />
+                ) : (
+                  <span className="project-emoji">{project.image}</span>
+                )}
               </div>
 
               <div className="project-content">
