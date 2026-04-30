@@ -36,6 +36,37 @@
   pointer-events: auto;
 }
 
+.reveal-summary {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+  transform: translateY(-6px);
+  opacity: 0;
+  transition: opacity 280ms ease, transform 320ms cubic-bezier(.2,.9,.2,1);
+  z-index: 220;
+}
+
+.reveal-title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: rgba(17,24,39,0.95);
+}
+
+.reveal-subtitle {
+  font-size: 0.85rem;
+  color: rgba(55,65,81,0.8);
+}
+
+.deck-slot.active .reveal-summary {
+  transform: translateY(0);
+  opacity: 1;
+}
+
 /* transforms driven by --p (0..1) */
 .deck-slot {
   /* move up into place as progress increases */

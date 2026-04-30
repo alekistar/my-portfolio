@@ -31,6 +31,27 @@ const StackedDeck = ({ children }) => {
         if (el) {
           el.style.setProperty('--p', progress.toFixed(3));
           el.style.setProperty('--i', String(i));
+          // set active class for entrance animations when mostly visible
+          if (progress > 0.6) {
+            el.classList.add('active');
+          } else {
+            el.classList.remove('active');
+          }
+
+          // populate reveal summary from inner section headings if present
+          try {
+            const inner = el.querySelector('.deck-inner');
+            const titleEl = el.querySelector('.reveal-title');
+            const subEl = el.querySelector('.reveal-subtitle');
+            if (inner && titleEl) {
+              const sectionTitle = inner.querySelector('.section-title');
+              const sectionSubtitle = inner.querySelector('.section-subtitle');
+              if (sectionTitle) titleEl.textContent = sectionTitle.textContent.trim();
+              if (sectionSubtitle && subEl) subEl.textContent = sectionSubtitle.textContent.trim();
+            }
+          } catch (e) {
+            // ignore DOM read errors
+          }
         }
       }
 
@@ -64,9 +85,13 @@ const StackedDeck = ({ children }) => {
             ref={(el) => (slotRefs.current[i] = el)}
             style={{ zIndex: 200 - i }}
           >
-            <div className="deck-inner">
-              {child}
-            </div>
+              <div className="reveal-summary" aria-hidden="true">
+                <div className="reveal-title"></div>
+                <div className="reveal-subtitle"></div>
+              </div>
+              <div className="deck-inner">
+                {child}
+              </div>
           </div>
         ))}
       </div>
