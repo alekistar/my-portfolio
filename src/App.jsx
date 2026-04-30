@@ -87,32 +87,16 @@ function AppContent() {
             <Hero />
             {loadDeferredSections && (
               <Suspense fallback={<SectionFallback />}>
-                  <div className="stack-layout">
-                    <StackedSection index={1}>
-                      <Services />
-                    </StackedSection>
-                    <StackedSection index={2}>
-                      <Portfolio />
-                    </StackedSection>
-                    <StackedSection index={3}>
-                      <Skills />
-                    </StackedSection>
-                    <StackedSection index={4}>
-                      <About />
-                    </StackedSection>
-                    <StackedSection index={5}>
-                      <Testimonials />
-                    </StackedSection>
-                    <StackedSection index={6}>
-                      <Blog />
-                    </StackedSection>
-                    <StackedSection index={7}>
-                      <Tools />
-                    </StackedSection>
-                    <StackedSection index={8}>
-                      <Contact />
-                    </StackedSection>
-                  </div>
+                      <StackedDeck>
+                        <Services />
+                        <Portfolio />
+                        <Skills />
+                        <About />
+                        <Testimonials />
+                        <Blog />
+                        <Tools />
+                        <Contact />
+                      </StackedDeck>
               </Suspense>
             )}
           </>

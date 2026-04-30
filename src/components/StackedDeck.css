@@ -1,0 +1,83 @@
+.stack-scroller {
+  position: relative;
+  width: 100%;
+}
+
+.stack-deck {
+  position: sticky;
+  top: 8vh;
+  height: 84vh;
+  width: min(1200px, 95%);
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.deck-slot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s cubic-bezier(.2,.9,.2,1), opacity 0.35s ease;
+  transform-origin: center top;
+  will-change: transform, opacity;
+  pointer-events: auto;
+}
+
+.deck-inner {
+  width: 100%;
+  background: var(--card-bg, rgba(255,255,255,0.98));
+  border-radius: 18px;
+  box-shadow: 0 28px 80px rgba(2,6,23,0.38);
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+/* transforms driven by --p (0..1) */
+.deck-slot {
+  /* move up into place as progress increases */
+  transform: translateY(calc((1 - var(--p, 0)) * 60px)) scale(calc(0.94 + (var(--p, 0) * 0.06))) rotateX(calc((1 - var(--p, 0)) * 8deg));
+  opacity: calc(0.6 + (var(--p, 0) * 0.45));
+}
+
+/* staggered lateral offsets to create deck look */
+.deck-slot:nth-child(odd) .deck-inner {
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+.deck-slot:nth-child(even) .deck-inner {
+  margin-left: 0;
+  margin-right: 8px;
+}
+
+/* subtle scale for deeper items */
+.deck-slot:nth-child(n+2) .deck-inner {
+  transform: translateZ(calc(var(--i) * -6px));
+}
+
+/* responsive fallback */
+@media (max-width: 900px) {
+  .stack-deck {
+    position: relative;
+    top: auto;
+    height: auto;
+    width: 100%;
+    margin: 0;
+  }
+
+  .deck-slot {
+    position: relative;
+    transform: none !important;
+    opacity: 1 !important;
+    padding: 0.5rem 0;
+  }
+
+  .deck-inner {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
