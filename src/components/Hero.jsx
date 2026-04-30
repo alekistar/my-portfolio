@@ -22,6 +22,14 @@ const Hero = () => {
 
   return (
     <section id="home" className={`hero ${isDark ? 'dark' : 'light'}`}>
+      {/* Animated Background */}
+      <div className="hero-background">
+        <div className="bg-gradient-1"></div>
+        <div className="bg-gradient-2"></div>
+        <div className="bg-gradient-3"></div>
+        <div className="bg-blur"></div>
+      </div>
+      
       <div className="hero-container">
         <motion.div
           className="hero-content"

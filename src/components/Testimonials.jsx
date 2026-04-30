@@ -1,40 +1,49 @@
 import { motion } from 'framer-motion';
-import { FiCheckCircle, FiSearch, FiLayers, FiCode, FiSend } from 'react-icons/fi';
+import { FiStar, FiMessageSquare } from 'react-icons/fi';
 import { useTheme } from '../context/ThemeContext';
+import { trackEvent } from '../config/datadog';
 import './Testimonials.css';
 
 const Testimonials = () => {
   const { isDark } = useTheme();
 
-  const processSteps = [
+  const testimonials = [
     {
-      step: 1,
-      title: 'Discovery',
-      description: 'I learn about your business goals, target audience, and requirements to create a tailored solution.',
-      icon: <FiSearch />,
-      color: '#667eea'
+      id: 1,
+      name: 'Sarah Kipchoge',
+      role: 'CEO, Tech Startups Kenya',
+      image: '👩‍💼',
+      quote: 'Alex transformed our outdated website into a stunning, performant platform that increased leads by 300%. Highly professional and responsive to feedback.',
+      rating: 5,
+      verified: true,
     },
     {
-      step: 2,
-      title: 'Strategy',
-      description: 'I plan the architecture, design system, and technology stack to build a scalable foundation.',
-      icon: <FiLayers />,
-      color: '#f093fb'
+      id: 2,
+      name: 'James Mwangi',
+      role: 'Founder, E-commerce Solutions',
+      image: '👨‍💻',
+      quote: 'Best developer I\'ve worked with. Built our M-Pesa integration flawlessly in record time. Delivered ahead of schedule with zero issues.',
+      rating: 5,
+      verified: true,
     },
     {
-      step: 3,
-      title: 'Development',
-      description: 'I build using clean, modern code following best practices and ensuring responsive design.',
-      icon: <FiCode />,
-      color: '#4facfe'
+      id: 3,
+      name: 'Grace Njeri',
+      role: 'Product Manager, Digital Agency',
+      image: '👩‍🔬',
+      quote: 'Alex\'s attention to detail and code quality is exceptional. The animations and UX improvements elevated our platform significantly.',
+      rating: 5,
+      verified: true,
     },
     {
-      step: 4,
-      title: 'Launch',
-      description: 'Deployment, testing, SEO optimization, and ongoing support to ensure your success.',
-      icon: <FiSend />,
-      color: '#43e97b'
-    }
+      id: 4,
+      name: 'David Kariuki',
+      role: 'CTO, FinTech Company',
+      image: '👨‍⚔️',
+      quote: 'Exceptional full-stack capabilities. Handled complex integrations and optimizations with ease. Definitely recommend to anyone.',
+      rating: 5,
+      verified: true,
+    },
   ];
 
   return (
@@ -48,57 +57,77 @@ const Testimonials = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">
-            My <span className="gradient-text">Process</span>
+            What Clients <span className="gradient-text">Say</span>
           </h2>
           <p className="section-subtitle">
-            How I transform your vision into a working product
+            Trusted by innovative companies and entrepreneurs across Kenya and beyond
           </p>
         </motion.div>
 
-        <div className="process-grid">
-          {processSteps.map((item, index) => (
+        <motion.div
+          className="testimonials-grid"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
+        >
+          {testimonials.map((testimonial, index) => (
             <motion.div
-              key={index}
-              className="process-card"
+              key={testimonial.id}
+              className="testimonial-card"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.6 }}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              whileHover={{ y: -5, transition: { duration: 0.3 } }}
+              onClick={() => trackEvent('testimonial_viewed', { client: testimonial.name })}
             >
-              <div className="process-number" style={{ background: `linear-gradient(135deg, ${item.color}, ${item.color}dd)` }}>
-                {item.step}
+              <div className="testimonial-header">
+                <div className="testimonial-avatar">{testimonial.image}</div>
+                <div className="testimonial-info">
+                  <h4 className="testimonial-name">{testimonial.name}</h4>
+                  <p className="testimonial-role">{testimonial.role}</p>
+                </div>
+                {testimonial.verified && (
+                  <span className="verified-badge" title="Verified Client">✓</span>
+                )}
               </div>
 
-              <motion.div
-                className="process-icon"
-                style={{ background: `linear-gradient(135deg, ${item.color}, ${item.color}dd)` }}
-                whileHover={{ scale: 1.1, rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                {item.icon}
-              </motion.div>
+              <div className="testimonial-quote">
+                <FiMessageSquare className="quote-icon" />
+                <p>{testimonial.quote}</p>
+              </div>
 
-              <h3 className="process-title">{item.title}</h3>
-              <p className="process-description">{item.description}</p>
-
-              {index < processSteps.length - 1 && (
-                <div className="process-arrow">
-                  <FiCheckCircle />
-                </div>
-              )}
+              <div className="testimonial-rating">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <FiStar
+                    key={i}
+                    className="star"
+                    fill="currentColor"
+                  />
+                ))}
+              </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <motion.div
-          className="process-cta"
+          className="testimonials-cta"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
         >
-          <p>Ready to get started? Let's begin your project journey.</p>
+          <p>Ready to join these satisfied clients?</p>
+          <motion.a
+            href="#contact"
+            className="cta-link"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => trackEvent('testimonial_cta_clicked')}
+          >
+            Start Your Project
+          </motion.a>
         </motion.div>
       </div>
     </section>

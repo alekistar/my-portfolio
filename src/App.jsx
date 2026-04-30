@@ -12,6 +12,7 @@ import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
 import Tools from './components/Tools';
 import Contact from './components/Contact';
+import StickyContactCTA from './components/StickyContactCTA';
 import Footer from './components/Footer';
 import './App.css';
 
@@ -36,6 +37,7 @@ function AppContent() {
   return (
     <div className={`App ${isDark ? 'dark' : 'light'}`}>
       <Navbar />
+      <StickyContactCTA />
       <Routes>
         <Route path="/" element={
           <>

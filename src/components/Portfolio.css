@@ -129,6 +129,73 @@
   color: #6b7280;
 }
 
+.project-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.portfolio.light .project-metrics {
+  background: rgba(102, 126, 234, 0.02);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.metric-value {
+  font-weight: 800;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.portfolio.dark .metric-label {
+  color: #9ca3af;
+}
+
+.portfolio.light .metric-label {
+  color: #6b7280;
+}
+
+.project-case-study {
+  padding: 1rem;
+  border-left: 3px solid rgba(102, 126, 234, 0.5);
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  background: rgba(102, 126, 234, 0.03);
+}
+
+.project-case-study p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.portfolio.dark .project-case-study p {
+  color: #d1d5db;
+}
+
+.portfolio.light .project-case-study p {
+  color: #4b5563;
+}
+
 .project-tags {
   display: flex;
   flex-wrap: wrap;
