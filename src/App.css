@@ -6,6 +6,11 @@
   line-height: 1.6;
 }
 
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
 .App.dark {
   background: #0a0a14;
   color: #f9fafb;
@@ -44,4 +49,8 @@ html {
   to {
     opacity: 1;
   }
+}
+
+.section-fallback {
+  min-height: 120px;
 }

@@ -151,7 +151,13 @@ const Portfolio = () => {
 
               <div className="project-image" style={{ background: project.gradient }}>
                 {project.image.startsWith('/') || project.image.startsWith('http') ? (
-                  <img src={project.image} alt={project.title} className="project-thumbnail" />
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="project-thumbnail"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 ) : (
                   <span className="project-emoji">{project.image}</span>
                 )}

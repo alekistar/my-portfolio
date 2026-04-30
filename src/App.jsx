@@ -1,39 +1,78 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import Skills from './components/Skills';
-import About from './components/About';
-import Testimonials from './components/Testimonials';
-import Blog from './components/Blog';
-import BlogPost from './components/BlogPost';
-import Tools from './components/Tools';
-import Contact from './components/Contact';
 import StickyContactCTA from './components/StickyContactCTA';
 import ScrollProgress from './components/ScrollProgress';
-import Footer from './components/Footer';
+const Services = lazy(() => import('./components/Services'));
+const Portfolio = lazy(() => import('./components/Portfolio'));
+const Skills = lazy(() => import('./components/Skills'));
+const About = lazy(() => import('./components/About'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const Blog = lazy(() => import('./components/Blog'));
+const BlogPost = lazy(() => import('./components/BlogPost'));
+const Tools = lazy(() => import('./components/Tools'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
 import './App.css';
+
+const SectionFallback = () => <div className="section-fallback" aria-hidden="true" />;
 
 function AppContent() {
   const { isDark } = useTheme();
   const location = useLocation();
+  const [loadDeferredSections, setLoadDeferredSections] = useState(false);
+
+  useEffect(() => {
+    if (loadDeferredSections) return;
+
+    let timeoutId;
+    const idleCallback = window.requestIdleCallback
+      ? window.requestIdleCallback(() => setLoadDeferredSections(true), { timeout: 1000 })
+      : null;
+
+    if (!window.requestIdleCallback) {
+      timeoutId = window.setTimeout(() => setLoadDeferredSections(true), 220);
+    }
+
+    return () => {
+      if (window.cancelIdleCallback && idleCallback) {
+        window.cancelIdleCallback(idleCallback);
+      }
+      if (timeoutId) {
+        window.clearTimeout(timeoutId);
+      }
+    };
+  }, [loadDeferredSections]);
 
   // Scroll to section if a hash or navigation state requests it
   useEffect(() => {
     const hash = location.hash || `#${location.state?.scrollTo || ''}`;
     if (hash && hash !== '#') {
       const id = hash.replace('#', '');
-      const section = document.getElementById(id);
-      if (section) {
-        setTimeout(() => {
-          section.scrollIntoView({ behavior: 'smooth' });
-        }, 50);
+      if (id !== 'home' && !loadDeferredSections) {
+        setLoadDeferredSections(true);
       }
+
+      let attempts = 0;
+      const maxAttempts = 20;
+      const scrollWhenReady = () => {
+        const section = document.getElementById(id);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+
+        attempts += 1;
+        if (attempts < maxAttempts) {
+          window.setTimeout(scrollWhenReady, 50);
+        }
+      };
+
+      window.setTimeout(scrollWhenReady, 50);
     }
-  }, [location]);
+  }, [location, loadDeferredSections]);
 
   return (
     <div className={`App ${isDark ? 'dark' : 'light'}`}>
@@ -44,19 +83,32 @@ function AppContent() {
         <Route path="/" element={
           <>
             <Hero />
-            <Services />
-            <Portfolio />
-            <Skills />
-            <About />
-            <Testimonials />
-            <Blog />
-            <Tools />
-            <Contact />
+            {loadDeferredSections && (
+              <Suspense fallback={<SectionFallback />}>
+                <Services />
+                <Portfolio />
+                <Skills />
+                <About />
+                <Testimonials />
+                <Blog />
+                <Tools />
+                <Contact />
+              </Suspense>
+            )}
           </>
         } />
-        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route
+          path="/blog/:slug"
+          element={(
+            <Suspense fallback={<SectionFallback />}>
+              <BlogPost />
+            </Suspense>
+          )}
+        />
       </Routes>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }
