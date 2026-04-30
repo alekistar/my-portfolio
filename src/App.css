@@ -54,3 +54,76 @@ html {
 .section-fallback {
   min-height: 120px;
 }
+
+.stack-layout {
+  position: relative;
+  perspective: 1200px;
+  padding-bottom: 4rem;
+}
+
+.stack-shell {
+  position: relative;
+  min-height: 118vh;
+}
+
+.stack-shell + .stack-shell {
+  margin-top: -30vh;
+}
+
+.stack-card {
+  position: sticky;
+  top: 92px;
+  border-radius: 24px;
+  overflow: hidden;
+  transform-origin: center top;
+  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.38);
+  will-change: transform, opacity;
+}
+
+.stack-shell:nth-child(odd) .stack-card {
+  margin-left: 1rem;
+  margin-right: 0.4rem;
+}
+
+.stack-shell:nth-child(even) .stack-card {
+  margin-left: 0.4rem;
+  margin-right: 1rem;
+}
+
+.stack-card > section {
+  min-height: calc(100vh - 110px);
+  border-radius: inherit;
+}
+
+@media (max-width: 900px) {
+  .stack-layout {
+    perspective: none;
+    padding-bottom: 0;
+  }
+
+  .stack-shell {
+    min-height: auto;
+  }
+
+  .stack-shell + .stack-shell {
+    margin-top: 0;
+  }
+
+  .stack-card {
+    position: relative;
+    top: auto;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .stack-shell:nth-child(odd) .stack-card,
+  .stack-shell:nth-child(even) .stack-card {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .stack-card > section {
+    min-height: auto;
+    border-radius: 0;
+  }
+}

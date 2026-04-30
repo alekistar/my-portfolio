@@ -5,6 +5,9 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import StickyContactCTA from './components/StickyContactCTA';
 import ScrollProgress from './components/ScrollProgress';
+import StackedSection from './components/StackedSection';
+import './App.css';
+
 const Services = lazy(() => import('./components/Services'));
 const Portfolio = lazy(() => import('./components/Portfolio'));
 const Skills = lazy(() => import('./components/Skills'));
@@ -15,7 +18,6 @@ const BlogPost = lazy(() => import('./components/BlogPost'));
 const Tools = lazy(() => import('./components/Tools'));
 const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
-import './App.css';
 
 const SectionFallback = () => <div className="section-fallback" aria-hidden="true" />;
 
@@ -85,14 +87,32 @@ function AppContent() {
             <Hero />
             {loadDeferredSections && (
               <Suspense fallback={<SectionFallback />}>
-                <Services />
-                <Portfolio />
-                <Skills />
-                <About />
-                <Testimonials />
-                <Blog />
-                <Tools />
-                <Contact />
+                  <div className="stack-layout">
+                    <StackedSection index={1}>
+                      <Services />
+                    </StackedSection>
+                    <StackedSection index={2}>
+                      <Portfolio />
+                    </StackedSection>
+                    <StackedSection index={3}>
+                      <Skills />
+                    </StackedSection>
+                    <StackedSection index={4}>
+                      <About />
+                    </StackedSection>
+                    <StackedSection index={5}>
+                      <Testimonials />
+                    </StackedSection>
+                    <StackedSection index={6}>
+                      <Blog />
+                    </StackedSection>
+                    <StackedSection index={7}>
+                      <Tools />
+                    </StackedSection>
+                    <StackedSection index={8}>
+                      <Contact />
+                    </StackedSection>
+                  </div>
               </Suspense>
             )}
           </>
