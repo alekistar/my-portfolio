@@ -11,39 +11,42 @@ const Skills = () => {
       category: 'Web Development',
       icon: <FiCode />,
       color: '#667eea',
+      proficiency: 95,
       skills: [
-        { name: 'React', icon: '⚛️' },
-        { name: 'JavaScript', icon: '🟨' },
-        { name: 'TypeScript', icon: '🔵' },
-        { name: 'HTML5', icon: '📄' },
-        { name: 'CSS3', icon: '🎨' },
-        { name: 'Tailwind', icon: '💨' },
-        { name: 'Node.js', icon: '🟩' },
-        { name: 'Express', icon: '⚡' },
-        { name: 'Vite', icon: '⚡' }
+        { name: 'React', icon: '⚛️', level: 95 },
+        { name: 'JavaScript', icon: '🟨', level: 95 },
+        { name: 'TypeScript', icon: '🔵', level: 90 },
+        { name: 'HTML5', icon: '📄', level: 100 },
+        { name: 'CSS3', icon: '🎨', level: 95 },
+        { name: 'Tailwind', icon: '💨', level: 92 },
+        { name: 'Node.js', icon: '🟩', level: 90 },
+        { name: 'Express', icon: '⚡', level: 88 },
+        { name: 'Vite', icon: '⚡', level: 92 }
       ]
     },
     {
       category: 'Systems & Data',
       icon: <FiDatabase />,
       color: '#f093fb',
+      proficiency: 82,
       skills: [
-        { name: 'Python', icon: '🐍' },
-        { name: 'SQL', icon: '🗄️' },
-        { name: 'MongoDB', icon: '📦' },
-        { name: 'PostgreSQL', icon: '🐘' },
-        { name: 'REST APIs', icon: '🔗' }
+        { name: 'Python', icon: '🐍', level: 85 },
+        { name: 'SQL', icon: '🗄️', level: 88 },
+        { name: 'MongoDB', icon: '📦', level: 85 },
+        { name: 'PostgreSQL', icon: '🐘', level: 80 },
+        { name: 'REST APIs', icon: '🔗', level: 90 }
       ]
     },
     {
       category: 'Tools & DevOps',
       icon: <FiCloud />,
       color: '#4facfe',
+      proficiency: 80,
       skills: [
-        { name: 'Git', icon: '🌳' },
-        { name: 'Linux', icon: '🐧' },
-        { name: 'Docker', icon: '🐳' },
-        { name: 'Postman', icon: '📮' }
+        { name: 'Git', icon: '🌳', level: 92 },
+        { name: 'Linux', icon: '🐧', level: 85 },
+        { name: 'Docker', icon: '🐳', level: 75 },
+        { name: 'Postman', icon: '📮', level: 90 }
       ]
     }
   ];
@@ -85,7 +88,20 @@ const Skills = () => {
                 >
                   {category.icon}
                 </motion.div>
-                <h3 className="category-title">{category.category}</h3>
+                <div className="category-info">
+                  <h3 className="category-title">{category.category}</h3>
+                  <div className="proficiency-bar">
+                    <motion.div
+                      className="proficiency-fill"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${category.proficiency}%` }}
+                      viewport={{ once: true }}
+                      transition={{ delay: categoryIndex * 0.2, duration: 1.2 }}
+                      style={{ background: `linear-gradient(90deg, ${category.color}, ${category.color}dd)` }}
+                    />
+                  </div>
+                  <span className="proficiency-text">{category.proficiency}% Proficient</span>
+                </div>
               </div>
 
               <div className="skills-tags">
@@ -98,11 +114,13 @@ const Skills = () => {
                     viewport={{ once: true }}
                     transition={{ delay: categoryIndex * 0.2 + skillIndex * 0.05, duration: 0.3 }}
                     whileHover={{ scale: 1.1, y: -5 }}
+                    title={`${skill.name} - ${skill.level}% Proficiency`}
                   >
                     <span className="skill-tag-icon" style={{ color: category.color }}>
                       {skill.icon}
                     </span>
                     <span className="skill-tag-name">{skill.name}</span>
+                    <div className="skill-level" style={{ width: `${skill.level}%`, background: category.color }} />
                   </motion.div>
                 ))}
               </div>
