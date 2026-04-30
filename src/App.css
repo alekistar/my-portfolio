@@ -3,6 +3,7 @@
   width: 100%;
   position: relative;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
 .App.dark {
@@ -15,14 +16,25 @@
   color: #111827;
 }
 
-/* Smooth Transitions */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* Theme transitions (targeted for performance) */
+body,
+.App,
+section,
+button,
+a,
+.project-card,
+.skill-category,
+.testimonial-card {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 /* Prevent flash of unstyled content */
 .App > * {
-  animation: fadeIn 0.5s ease-in;
+  animation: fadeIn 0.4s ease-in;
+}
+
+html {
+  scroll-padding-top: 96px;
 }
 
 @keyframes fadeIn {

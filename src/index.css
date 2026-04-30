@@ -14,6 +14,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 }
 
 html {
@@ -41,4 +42,27 @@ code {
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #764ba2, #667eea);
+}
+
+::selection {
+  background: rgba(102, 126, 234, 0.25);
+  color: #111827;
+}
+
+:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

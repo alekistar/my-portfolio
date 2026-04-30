@@ -9,6 +9,7 @@ import './Navbar.css';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
@@ -21,6 +22,37 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (location.pathname !== '/') return;
+
+    const sections = ['home', 'services', 'portfolio', 'skills', 'about', 'testimonials', 'blog', 'tools', 'contact'];
+    const observers = [];
+
+    sections.forEach((id) => {
+      const section = document.getElementById(id);
+      if (!section) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          });
+        },
+        {
+          threshold: 0.35,
+          rootMargin: '-80px 0px -40% 0px',
+        }
+      );
+
+      observer.observe(section);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((observer) => observer.disconnect());
+  }, [location.pathname]);
+
   const navItems = ['Home', 'Services', 'Portfolio', 'Skills', 'About', 'Testimonials', 'Blog', 'Tools', 'Contact'];
 
   const scrollOrNavigate = (item) => {
@@ -31,6 +63,7 @@ const Navbar = () => {
       const section = document.getElementById(targetId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
+        setActiveSection(targetId);
       } else {
         // Fallback to hash navigation
         window.location.hash = `#${targetId}`;
@@ -39,8 +72,20 @@ const Navbar = () => {
     } else {
       // Navigate via router and pass target id; App will scroll when loaded
       navigate('/', { state: { scrollTo: targetId } });
+      setActiveSection(targetId);
       setIsOpen(false);
     }
+  };
+
+  const handleLogoClick = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      return;
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setActiveSection('home');
+    setIsOpen(false);
   };
 
   return (
@@ -55,6 +100,7 @@ const Navbar = () => {
           className="logo"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={handleLogoClick}
         >
           <span className="logo-text">Alex Opiyo</span>
           <span className="logo-dot">.</span>
@@ -65,7 +111,7 @@ const Navbar = () => {
             <motion.button
               key={item}
               onClick={() => scrollOrNavigate(item)}
-              className="nav-link"
+              className={`nav-link ${activeSection === item.toLowerCase() ? 'active' : ''}`}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
@@ -125,7 +171,7 @@ const Navbar = () => {
             <motion.button
               key={item}
               onClick={() => scrollOrNavigate(item)}
-              className="mobile-nav-link"
+              className={`mobile-nav-link ${activeSection === item.toLowerCase() ? 'active' : ''}`}
               whileHover={{ x: 10 }}
             >
               {item}
